@@ -1,0 +1,10 @@
+.dialogs {
+  background: lavender;
+}
+.dialogs__wrap {
+  display: grid;
+  grid-template-columns: 2fr 10fr;
+}
+.dialog.active {
+  color: gold;
+}
