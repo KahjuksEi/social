@@ -1,24 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Header from "./components/Header/Header";
+import Navigation from "./components/Navigation/Navigation";
+import Profile from "./components/Profile/Profile";
+import Dialogs from "./components/Dialogs/Dialogs";
+import Friend from "./components/Friend/Friend";
+import { Route, BrowserRouter } from "react-router-dom";
+import "./App.css";
 
-function App() {
+function App(props) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div className="App-wrapper">
+        <Header />
+        <Navigation />
+        <Route
+          path="/profile"
+          render={() => (
+            <Profile
+              profilePage={props.state.profilePage}
+              dispatch={props.dispatch}
+            />
+          )}
+        />
+        <Route
+          path="/dialogs"
+          render={() => (
+            <Dialogs
+              state={props.state.dialogsPage}
+              dispatch={props.dispatch}
+            />
+          )}
+        />
+      </div>
+      <p>Friends online:</p>
+      <Friend state={props.state.dialogsPage} />
+    </BrowserRouter>
   );
 }
 
