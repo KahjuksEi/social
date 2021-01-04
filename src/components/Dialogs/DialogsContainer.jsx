@@ -4,22 +4,25 @@ import {
   addPostToMessActionCreator,
   updateNewPostTextToMessActionCreator,
 } from "../../redux/dialogs-reducer";
+import { connect } from "react-redux";
 
-function DialogsContainer(props) {
-  let state = props.store.getState().dialogsPage;
+// созд две фии для настройки коннекта чтобы презкомп Dialogs законнектить к стору
+let mapStateToProps = (state) => {
+  return {
+    dialogsPage: state.dialogsPage,
+  };
+};
+let mapDispatchToProps = (dispatch) => {
+  return {
+    onPostChangeToMess: (body) => {
+      dispatch(updateNewPostTextToMessActionCreator(body));
+    },
+    addPostToMess: () => {
+      dispatch(addPostToMessActionCreator());
+    },
+  };
+};
+// connect возвр новую конткомп
+const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
 
-  let addPostToMess = () => {
-    props.store.dispatch(addPostToMessActionCreator());
-  };
-  let onPostChangeToMess = (body) => {
-    props.store.dispatch(updateNewPostTextToMessActionCreator(body));
-  };
-  return (
-    <Dialogs
-      onPostChangeToMess={onPostChangeToMess}
-      addPostToMess={addPostToMess}
-      dialogsPage={state}
-    />
-  );
-}
 export default DialogsContainer;
