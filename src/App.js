@@ -20,7 +20,7 @@ function App(props) {
         />
       </div>
       <p>Friends online:</p>
-      <Friend state={props.state.dialogsPage} />
+      {/* <Friend state={props.state.dialogsPage} /> */}
     </BrowserRouter>
   );
 }
