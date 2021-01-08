@@ -15,6 +15,11 @@ function Navigation() {
           </NavLink>
         </li>
         <li>
+          <NavLink to="/users" className={classes.link}>
+            Users
+          </NavLink>
+        </li>
+        <li>
           <NavLink
             to="/dialogs"
             className={classes.link}
