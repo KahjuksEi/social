@@ -4,6 +4,7 @@ import Navigation from "./components/Navigation/Navigation";
 import Profile from "./components/Profile/Profile";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import Friend from "./components/Friend/Friend";
+import UsersContainer from "./components/Users/UsersContainer";
 import { Route, BrowserRouter } from "react-router-dom";
 import "./App.css";
 
@@ -18,6 +19,7 @@ function App(props) {
           path="/dialogs"
           render={() => <DialogsContainer store={props.store} />}
         />
+        <Route path="/users" render={() => <UsersContainer />} />
       </div>
       <p>Friends online:</p>
       {/* <Friend state={props.state.dialogsPage} /> */}
