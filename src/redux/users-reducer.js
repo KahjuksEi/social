@@ -1,5 +1,8 @@
 let initialState = {
   users: [],
+  pageSize: 5,
+  totalUsersCount: 0,
+  currentPage: 5,
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -26,11 +29,21 @@ const usersReducer = (state = initialState, action) => {
           return u;
         }),
       };
-    /*склеиваем текущих юзеров с полученными с экшна*/
+
     case "SET_USERS":
       return {
         ...state,
-        users: [...state.users, ...action.users],
+        users: action.users,
+      };
+    case "SET_CURRENT_PAGE":
+      return {
+        ...state,
+        currentPage: action.currentPage,
+      };
+    case "SET_TOTAL_USERS_COUNT":
+      return {
+        ...state,
+        totalUsersCount: action.count,
       };
     default:
       return state;
@@ -45,4 +58,11 @@ export const unfollowAC = (userId) => {
 export const setUsersAC = (users) => {
   return { type: "SET_USERS", users };
 };
+export const setCurrentPageAC = (currentPage) => {
+  return { type: "SET_CURRENT_PAGE", currentPage };
+};
+export const setTotalUsersCountAC = (totalUsersCount) => {
+  return { type: "SET_TOTAL_USERS_COUNT", count: totalUsersCount };
+};
+
 export default usersReducer;

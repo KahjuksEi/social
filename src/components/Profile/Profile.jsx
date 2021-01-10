@@ -3,9 +3,6 @@ import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import React from "react";
 
 class Profile extends React.Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     return (
       <div className="content__wrap">
