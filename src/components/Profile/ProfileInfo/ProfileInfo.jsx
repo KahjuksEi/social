@@ -1,20 +1,19 @@
 import classes from "./ProfileInfo.module.css";
-import React from "react";
+import Preloader from "../../common/Preloader/Preloader";
 
-class ProfileInfo extends React.Component {
-  render() {
-    return (
-      <div>
-        <div className={classes.img}>
-          <img
-            src="https://images.pexels.com/photos/2478248/pexels-photo-2478248.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-            alt=""
-          />
-        </div>
-        <p>ava+description</p>
-      </div>
-    );
+const ProfileInfo = (props) => {
+  if (!props.profile) {
+    return <Preloader />;
   }
-}
+  return (
+    <div>
+      <div className={classes.img}>
+        <img src={props.profile.photos.large} alt="photo" />
+      </div>
+      <img src={props.profile.photos.small} alt="photo" />
+      <p>{props.profile.fullName}</p>
+    </div>
+  );
+};
 
 export default ProfileInfo;

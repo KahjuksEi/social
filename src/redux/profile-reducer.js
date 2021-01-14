@@ -7,6 +7,7 @@ let initialState = {
     { message: "wazzup!!", id: 3, like: "77" },
   ],
   newPostText: "it-kamasutra",
+  profile: null,
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -31,14 +32,22 @@ const profileReducer = (state = initialState, action) => {
       stateCopy.newPostText = action.newText;
       return stateCopy;
     }
+    case "SET_USER_PROFILE": {
+      return { ...state, profile: action.profile };
+    }
     default:
       return state;
   }
 };
+/*AC фия возвр объект экшн в кот инкапс данные для редюсера чтобы он применил изменения стейта*/
 export const addPostActionCreator = () => {
   return { type: "ADD-POST" };
 };
 export const updateNewPostTextActionCreator = (text) => {
   return { type: "UPDATE-NEW-POST-TEXT", newText: text };
 };
+export const setUserProfile = (profile) => {
+  return { type: "SET_USER_PROFILE", profile };
+};
+setUserProfile;
 export default profileReducer;
