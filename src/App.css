@@ -29,6 +29,3 @@
 .content {
   grid-area: c;
 }
-.content__wrap {
-  background: teal;
-}
