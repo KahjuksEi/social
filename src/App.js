@@ -13,7 +13,8 @@ function App(props) {
     <div className="App-wrapper">
       <Header />
       <Navigation />
-      <Route path="/profile" render={() => <ProfileContainer />} />
+      {/* показываем что у урла могут быть параметры, "?" дает необяз-сть параметра */}
+      <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
       <Route path="/dialogs" render={() => <DialogsContainer />} />
       <Route path="/users" render={() => <UsersContainer />} />
       <p>Friends online:</p>
