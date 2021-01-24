@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "./components/Header/Header";
+import HeaderContainer from "./components/Header/HeaderContainer";
 import Navigation from "./components/Navigation/Navigation";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
@@ -11,7 +11,7 @@ import "./App.css";
 function App(props) {
   return (
     <div className="App-wrapper">
-      <Header />
+      <HeaderContainer />
       <Navigation />
       {/* показываем что у урла могут быть параметры, "?" дает необяз-сть параметра */}
       <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
