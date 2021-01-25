@@ -4,6 +4,8 @@ let initialState = {
   totalUsersCount: 0,
   currentPage: 1,
   isFetching: false,
+  /*когда подписка кладем ИД, когда отписка забираем*/
+  followingInProgress: [],
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -51,6 +53,14 @@ const usersReducer = (state = initialState, action) => {
         ...state,
         isFetching: action.isFetching,
       };
+    case "TOGGLE_IS_FOLLOWING_PROGRESS":
+      return {
+        ...state,
+        /* фильтруем только ИД неравную пришедшей с экшна */
+        followingInProgress: action.isFetching
+          ? [...state.followingInProgress, action.userId]
+          : state.followingInProgress.filter((id) => id != action.userId),
+      };
     default:
       return state;
   }
@@ -72,6 +82,9 @@ export const setTotalUsersCountAC = (totalUsersCount) => {
 };
 export const toggleIsFetchingAC = (isFetching) => {
   return { type: "TOGGLE_IS_FETCHING", isFetching };
+};
+export const toggleFollowingProgressAC = (isFetching, userId) => {
+  return { type: "TOGGLE_IS_FOLLOWING_PROGRESS", isFetching, userId };
 };
 
 export default usersReducer;
