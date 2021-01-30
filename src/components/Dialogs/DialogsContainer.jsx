@@ -5,14 +5,15 @@ import {
   updateNewPostTextToMessActionCreator,
 } from "../../redux/dialogs-reducer";
 import { connect } from "react-redux";
+import { withAuthRedirect } from "../../components/hoc/withAuthRedirect";
 
 // созд две фии для настройки коннекта чтобы презкомп Dialogs законнектить к стору
 let mapStateToProps = (state) => {
   return {
     dialogsPage: state.dialogsPage,
-    isAuth: state.auth.isAuth,
   };
 };
+
 let mapDispatchToProps = (dispatch) => {
   return {
     onPostChangeToMess: (body) => {
@@ -23,7 +24,15 @@ let mapDispatchToProps = (dispatch) => {
     },
   };
 };
+
+/*HOC*/
+/*HOC - вызвали с нужным параметром передав нужную целевую компоненту*/
+let authRedirectComponent = withAuthRedirect(Dialogs);
+
 // connect возвр новую конткомп
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
+const DialogsContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(authRedirectComponent);
 
 export default DialogsContainer;
