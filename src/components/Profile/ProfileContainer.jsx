@@ -23,7 +23,10 @@ class ProfileContainer extends React.Component {
   }
 }
 
-let mapStateToProps = (state) => ({ profile: state.profilePage.profile });
+let mapStateToProps = (state) => ({
+  profile: state.profilePage.profile,
+  isAuth: state.auth.isAuth,
+});
 
 /*фия для прокидывания в пропсах урла*/
 let WithUrlDataContainerComponent = withRouter(ProfileContainer);
