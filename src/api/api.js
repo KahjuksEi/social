@@ -29,4 +29,15 @@ export const usersAPI = {
       `https://social-network.samuraijs.com/api/1.0/follow/${userId.id}`
     );
   },
+  getProfile(userId) {
+    return instance.get(
+      `https://social-network.samuraijs.com/api/1.0/profile/` + userId
+    );
+  },
+};
+
+export const authAPI = {
+  me() {
+    return instance.get(`https://social-network.samuraijs.com/api/1.0/auth/me`);
+  },
 };

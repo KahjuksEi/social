@@ -1,3 +1,5 @@
+import { usersAPI } from "../api/api";
+
 //когда в редюсер еще не пришел никакой стейт то юзаем первичный стейт
 //в редюсере как аргумент по умолчанию
 let initialState = {
@@ -49,5 +51,10 @@ export const updateNewPostTextActionCreator = (text) => {
 export const setUserProfile = (profile) => {
   return { type: "SET_USER_PROFILE", profile };
 };
-/*setUserProfile;*/
+export const getUserProfile = (userId) => (dispatch) => {
+  usersAPI.getProfile(userId).then((response) => {
+    dispatch(setUserProfile(response.data));
+  });
+};
+
 export default profileReducer;
