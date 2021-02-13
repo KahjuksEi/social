@@ -4,15 +4,17 @@ import React from "react";
 import classes from "./Profile.module.css";
 import { Redirect } from "react-router-dom";
 
-class Profile extends React.Component {
-  render() {
-    return (
-      <div className={classes.content__wrap}>
-        <ProfileInfo profile={this.props.profile} />
-        <MyPostsContainer />
-      </div>
-    );
-  }
-}
+const Profile = (props) => {
+  return (
+    <div className={classes.content__wrap}>
+      <ProfileInfo
+        profile={props.profile}
+        status={props.status}
+        updateStatus={props.updateStatus}
+      />
+      <MyPostsContainer />
+    </div>
+  );
+};
 
 export default Profile;

@@ -6,6 +6,7 @@ const ProfileInfo = (props) => {
   if (!props.profile) {
     return <Preloader />;
   }
+
   return (
     <div>
       <div className={classes.img}>
@@ -13,7 +14,7 @@ const ProfileInfo = (props) => {
       </div>
       <img src={props.profile.photos.small} alt="photo" />
       <p>{props.profile.fullName}</p>
-      <ProfileStatus status={"hello my friend"} />
+      <ProfileStatus status={props.status} updateStatus={props.updateStatus} />
     </div>
   );
 };
