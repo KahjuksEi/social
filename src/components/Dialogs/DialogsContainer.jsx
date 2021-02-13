@@ -6,6 +6,7 @@ import {
 } from "../../redux/dialogs-reducer";
 import { connect } from "react-redux";
 import { withAuthRedirect } from "../../components/hoc/withAuthRedirect";
+import { compose } from "redux";
 
 // созд две фии для настройки коннекта чтобы презкомп Dialogs законнектить к стору
 let mapStateToProps = (state) => {
@@ -16,23 +17,16 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => {
   return {
-    onPostChangeToMess: (body) => {
-      dispatch(updateNewPostTextToMessActionCreator(body));
-    },
     addPostToMess: () => {
       dispatch(addPostToMessActionCreator());
+    },
+    onPostChangeToMess: (body) => {
+      dispatch(updateNewPostTextToMessActionCreator(body));
     },
   };
 };
 
-/*HOC*/
-/*HOC - вызвали с нужным параметром передав нужную целевую компоненту*/
-let authRedirectComponent = withAuthRedirect(Dialogs);
-
-// connect возвр новую конткомп
-const DialogsContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(authRedirectComponent);
-
-export default DialogsContainer;
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withAuthRedirect
+)(Dialogs);
