@@ -13,7 +13,6 @@ import { compose } from "redux";
 
 class UsersContainer extends React.Component {
   componentDidMount() {
-    debugger;
     this.props.getUsers(this.props.currentPage, this.props.pageSize);
   }
 
