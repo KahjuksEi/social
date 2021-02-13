@@ -33,6 +33,6 @@ export default compose(
   connect(mapStateToProps, {
     getUserProfile,
   }),
-  withRouter,
-  withAuthRedirect /*убирая этот редирект можем снимать защиту*/
+  withRouter
+  // withAuthRedirect /*убирая этот редирект можем снимать защиту*/
 )(ProfileContainer);
