@@ -47,5 +47,5 @@ export default compose(
     updateStatus,
   }),
   withRouter
-  // withAuthRedirect /*убирая этот редирект можем снимать защиту*/
+  //withAuthRedirect /*убирая этот редирект можем снимать защиту*/
 )(ProfileContainer);

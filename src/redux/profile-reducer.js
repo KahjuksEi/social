@@ -8,7 +8,7 @@ let initialState = {
     { message: "hi!", id: 2, like: "10" },
     { message: "wazzup!!", id: 3, like: "77" },
   ],
-  newPostText: "it-kamasutra",
+  // newPostText: "it-kamasutra",
   profile: null,
   status: "",
 };
@@ -18,7 +18,7 @@ const profileReducer = (state = initialState, action) => {
     case "ADD-POST": {
       let newPost = {
         id: 5,
-        message: state.newPostText,
+        message: action.newPostText,
         like: "0",
       };
       /*по правилам созд копию стейта в котором меняем данные*/
@@ -29,12 +29,12 @@ const profileReducer = (state = initialState, action) => {
       stateCopy.newPostText = "";
       return stateCopy;
     }
-    case "UPDATE-NEW-POST-TEXT": {
-      let stateCopy = { ...state };
-      stateCopy.posts = [...state.posts];
-      stateCopy.newPostText = action.newText;
-      return stateCopy;
-    }
+    // case "UPDATE-NEW-POST-TEXT": {
+    //   let stateCopy = { ...state };
+    //   stateCopy.posts = [...state.posts];
+    //   stateCopy.newPostText = action.newText;
+    //   return stateCopy;
+    // }
     case "SET_USER_PROFILE": {
       return { ...state, profile: action.profile };
     }
@@ -46,12 +46,12 @@ const profileReducer = (state = initialState, action) => {
   }
 };
 /*AC фия возвр объект экшн в кот инкапс данные для редюсера чтобы он применил изменения стейта*/
-export const addPostActionCreator = () => {
-  return { type: "ADD-POST" };
+export const addPostActionCreator = (newPostText) => {
+  return { type: "ADD-POST", newPostText };
 };
-export const updateNewPostTextActionCreator = (text) => {
-  return { type: "UPDATE-NEW-POST-TEXT", newText: text };
-};
+// export const updateNewPostTextActionCreator = (text) => {
+//   return { type: "UPDATE-NEW-POST-TEXT", newText: text };
+// };
 export const setUserProfile = (profile) => {
   return { type: "SET_USER_PROFILE", profile };
 };
