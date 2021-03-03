@@ -1,9 +1,6 @@
 import React from "react";
 import Dialogs from "./Dialogs";
-import {
-  addPostToMessActionCreator,
-  updateNewPostTextToMessActionCreator,
-} from "../../redux/dialogs-reducer";
+import { addPostToMessActionCreator } from "../../redux/dialogs-reducer";
 import { connect } from "react-redux";
 import { withAuthRedirect } from "../../components/hoc/withAuthRedirect";
 import { compose } from "redux";
@@ -17,16 +14,16 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => {
   return {
-    addPostToMess: () => {
-      dispatch(addPostToMessActionCreator());
-    },
-    onPostChangeToMess: (body) => {
-      dispatch(updateNewPostTextToMessActionCreator(body));
+    addPostToMess: (newMessageBody) => {
+      dispatch(addPostToMessActionCreator(newMessageBody));
     },
   };
 };
 
 export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
-  withAuthRedirect
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  ) /*убирая этот редирект можем снимать защиту*/
+  /*withAuthRedirect*/
 )(Dialogs);

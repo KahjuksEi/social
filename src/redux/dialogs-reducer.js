@@ -12,31 +12,21 @@ let initialState = {
     { message: "Hello!", id: 2 },
     { message: "How do you do?", id: 3 },
   ],
-  newPostText: "Greet!",
 };
 const dialogsReducer = (state = initialState, action) => {
   /*продвинутый рефакторинг*/
   switch (action.type) {
     case "ADD-POST-TO-MESS":
-      let newPost = state.newPostText;
+      let body = action.newMessageBody;
       return {
         ...state,
-        newPostText: "",
-        messages: [...state.messages, { message: state.newPostText, id: 10 }],
-      };
-    case "UPDATE-NEW-POST-TEXT-TO-MESS":
-      return {
-        ...state,
-        newPostText: action.newText,
+        messages: [...state.messages, { id: 10, message: body }],
       };
     default:
       return state;
   }
 };
-export const addPostToMessActionCreator = () => {
-  return { type: "ADD-POST-TO-MESS" };
-};
-export const updateNewPostTextToMessActionCreator = (text) => {
-  return { type: "UPDATE-NEW-POST-TEXT-TO-MESS", newText: text };
+export const addPostToMessActionCreator = (newMessageBody) => {
+  return { type: "ADD-POST-TO-MESS", newMessageBody };
 };
 export default dialogsReducer;
