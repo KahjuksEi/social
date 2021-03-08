@@ -14,7 +14,7 @@ class ProfileContainer extends React.Component {
   componentDidMount() {
     let userId = this.props.match.params.userId;
     if (!userId) {
-      userId = 2;
+      userId = 14337;
     } /*дефолтный при отсутствии*/
     this.props.getUserProfile(userId);
     this.props.getStatus(userId);
@@ -46,6 +46,6 @@ export default compose(
     getStatus,
     updateStatus,
   }),
-  withRouter
-  //withAuthRedirect /*убирая этот редирект можем снимать защиту*/
+  withRouter,
+  withAuthRedirect /*убирая этот редирект можем снимать защиту*/
 )(ProfileContainer);

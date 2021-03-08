@@ -44,7 +44,7 @@ export const Input = ({ input, meta, ...props }) => {
     <div
       className={classes.formControl + " " + (hasError ? classes.error : " ")}
     >
-      <textarea {...input} {...props} />
+      <input {...input} {...props} />
 
       {hasError && <span>{meta.error}</span>}
     </div>
