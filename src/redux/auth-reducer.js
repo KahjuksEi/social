@@ -1,3 +1,4 @@
+import { stopSubmit } from "redux-form";
 import { authAPI } from "../api/api";
 let initialState = {
   userId: null,
@@ -28,7 +29,7 @@ export const getAuthUserData = () => (dispatch) => {
   authAPI.me().then((response) => {
     if (response.data.resultCode === 0) {
       let { id, email, login } = response.data.data;
-      dispatch(getAuthUserData(id, email, login, true));
+      dispatch(setAuthUserData(id, email, login, true));
     }
   });
 };
@@ -37,14 +38,16 @@ export const login = (email, password, rememberMe) => (dispatch) => {
   authAPI.login(email, password, rememberMe).then((response) => {
     if (response.data.resultCode === 0) {
       dispatch(getAuthUserData());
+    } else {
+      /*стопаем сабмит какой формы и какие свва, не работает как надо*/
+      dispatch(stopSubmit("login", { _error: "common error" }));
     }
   });
 };
-
 export const logout = () => (dispatch) => {
   authAPI.logout().then((response) => {
     if (response.data.resultCode === 0) {
-      dispatch(getAuthUserData(null, null, null, false));
+      dispatch(setAuthUserData(null, null, null, false));
     }
   });
 };
