@@ -41,6 +41,13 @@ const profileReducer = (state = initialState, action) => {
     case "SET_STATUS": {
       return { ...state, status: action.status };
     }
+    /*для теста*/
+    case "DELETE_POST": {
+      return {
+        ...state,
+        posts: state.posts.filter((p) => p.id != action.postId),
+      };
+    }
     default:
       return state;
   }
@@ -77,6 +84,9 @@ export const updateStatus = (status) => (dispatch) => {
       dispatch(setStatus(status));
     }
   });
+};
+export const deletePost = (postId) => {
+  ({ type: "DELETE_POST", postId }); /*для теста*/
 };
 
 export default profileReducer;
