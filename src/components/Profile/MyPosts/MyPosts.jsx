@@ -8,20 +8,19 @@ import {
 } from "../../../utils/validators/validators";
 import { Textarea } from "../../common/FormsControls/FormsControls";
 
-function MyPosts(props) {
+const MyPosts = React.memo((props) => {
+  /*для однократных отрисовок, но чисто для классов, либо можно класс extends PureComponent 
+  и проверка по дефолту будет, а для функкомп юзаем memo*/
+  // shouldComponent(nextProps, nextState){
+  //   return nextProps != nextProps || nextState !=nextState
+  // }
+
   let postsElements = props.posts.map((el) => (
     <Post message={el.message} like={el.like} />
   ));
-  let newPostText = props.newPostText;
-  let newPostElement = React.createRef();
-
   let onAddPost = (values) => {
     props.addPost(values.newPostText);
   };
-  // let onPostChange = () => {
-  //   let text = newPostElement.current.value;
-  //   props.updateNewPostText(text);
-  // };
   return (
     <div>
       <h1>My posts ProfilePage</h1>
@@ -31,7 +30,7 @@ function MyPosts(props) {
       <Post />
     </div>
   );
-}
+});
 
 const maxLength10 = maxLengthCreator(10);
 
