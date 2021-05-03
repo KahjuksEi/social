@@ -1,11 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const ProfileStatusWithHooks = (props) => {
   /*let stateWithSetState = useState(false);*/ /*true создаст инпут*/
   // let editMode = stateWithSetState[0];
   // let setEditMode = stateWithSetState[1];
-  let [editMode, setEditMode] = useState(false); /*деструктуризацией*/
+  let [editMode, setEditMode] = useState(
+    false
+  ); /*деструктуризацией ибо useState возвр массив*/
   let [status, setStatus] = useState(props.status);
+
+  /*принимает фию которую выполнит после отрисовки*/
+  useEffect(() => {
+    setStatus(props.status);
+  }, [props.status /*запуск зависит от статуса*/]);
 
   const activateEditMode = () => {
     setEditMode(true);
