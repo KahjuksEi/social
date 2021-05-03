@@ -14,11 +14,12 @@ class ProfileContainer extends React.Component {
   componentDidMount() {
     let userId = this.props.match.params.userId;
     if (!userId) {
-      /*userId = 14337;*/
-      userId = this.props.autorizedUserId;
-      if (!userId) {
-        this.props.history.push("/login");
-      }
+      userId = 14337;
+      // закоменчено чтоб profile видеть без логина
+      // userId = this.props.autorizedUserId;
+      // if (!userId) {
+      //   this.props.history.push("/login");
+      // }
     } /*дефолтный при отсутствии*/
     this.props.getUserProfile(userId);
     this.props.getStatus(userId);
@@ -52,6 +53,7 @@ export default compose(
     getStatus,
     updateStatus,
   }),
-  withRouter,
-  withAuthRedirect /*убирая этот редирект можем снимать защиту*/
+  withRouter
+  /*убирая этот редирект можем снимать защиту*/
+  /*withAuthRedirect*/
 )(ProfileContainer);
