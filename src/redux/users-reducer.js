@@ -91,39 +91,65 @@ export const toggleFollowingProgress = (isFetching, userId) => {
 
 /*санка*/
 export const getUsers = (page, pageSize) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(toggleIsFetching(true));
     dispatch(setCurrentPage(page)); /*пагинация*/
-    usersAPI.getUsers(page, pageSize).then((data) => {
-      dispatch(toggleIsFetching(false));
-      dispatch(setUsers(data.items));
-      dispatch(setTotalUsersCount(data.totalCount));
-    });
+    let data = await usersAPI.getUsers(page, pageSize);
+    dispatch(toggleIsFetching(false));
+    dispatch(setUsers(data.items));
+    dispatch(setTotalUsersCount(data.totalCount));
   };
 };
 
+const followUnfollowFlow = async (
+  dispatch,
+  userId,
+  apiMethod,
+  actionCreator
+) => {
+  dispatch(toggleFollowingProgress(true, userId));
+  let response = await apiMethod(userId);
+  if (response.data.resultCode === 0) {
+    dispatch(actionCreator(userId));
+  }
+  dispatch(toggleFollowingProgress(false, userId));
+};
+
 export const follow = (userId) => {
-  return (dispatch) => {
-    dispatch(toggleFollowingProgress(true, userId));
-    usersAPI.follow(userId).then((response) => {
-      if (response.data.resultCode === 0) {
-        dispatch(followSuccess(userId));
-      }
-      dispatch(toggleFollowingProgress(false, userId));
-    });
+  return async (dispatch) => {
+    let apiMethod = usersAPI.follow.bind(usersAPI);
+    followUnfollowFlow(dispatch, userId, apiMethod, followSuccess);
   };
 };
 
 export const unfollow = (userId) => {
-  return (dispatch) => {
-    dispatch(toggleFollowingProgress(true, userId));
-    usersAPI.unfollow(userId).then((response) => {
-      if (response.data.resultCode === 0) {
-        dispatch(unfollowSuccess(userId));
-      }
-      dispatch(toggleFollowingProgress(false, userId));
-    });
+  return async (dispatch) => {
+    let apiMethod = usersAPI.unfollow.bind(usersAPI);
+    followUnfollowFlow(dispatch, userId, apiMethod, unfollowSuccess);
   };
 };
+
+/*понятный незарефакторенный код функций*/
+// export const follow = (userId) => {
+//   return async (dispatch) => {
+//     dispatch(toggleFollowingProgress(true, userId));
+//     let response = await usersAPI.follow(userId);
+//     if (response.data.resultCode === 0) {
+//       dispatch(followSuccess(userId));
+//     }
+//     dispatch(toggleFollowingProgress(false, userId));
+//   };
+// };
+
+// export const unfollow = (userId) => {
+//   return async (dispatch) => {
+//     dispatch(toggleFollowingProgress(true, userId));
+//     let response = await usersAPI.unfollow(userId);
+//     if (response.data.resultCode === 0) {
+//       dispatch(unfollowSuccess(userId));
+//     }
+//     dispatch(toggleFollowingProgress(false, userId));
+//   };
+// };
 
 export default usersReducer;
