@@ -2,7 +2,9 @@ import React from "react";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Navigation from "./components/Navigation/Navigation";
 import ProfileContainer from "./components/Profile/ProfileContainer";
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
+// import DialogsContainer from "./components/Dialogs/DialogsContainer";
+/*lazyload example*/
+
 import UsersContainer from "./components/Users/UsersContainer";
 import Friend from "./components/Friend/Friend";
 import { Route, withRouter } from "react-router-dom";
@@ -12,7 +14,9 @@ import { connect } from "react-redux";
 import { compose } from "redux";
 import { initializeApp } from "./redux/app-reducer";
 import Preloader from "./components/common/Preloader/Preloader";
-
+const DialogsContainer = React.lazy(() =>
+  import("./components/Dialogs/DialogsContainer")
+);
 class App extends React.Component {
   componentDidMount() {
     this.props.initializeApp();
@@ -28,7 +32,17 @@ class App extends React.Component {
         <Navigation />
         {/* показываем что у урла могут быть параметры, "?" дает необяз-сть параметра */}
         <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
-        <Route path="/dialogs" render={() => <DialogsContainer />} />
+
+        <Route
+          path="/dialogs"
+          render={() => {
+            return (
+              <React.Suspense fallback={<div>Loadingg..</div>}>
+                <DialogsContainer />
+              </React.Suspense>
+            );
+          }}
+        />
         <Route path="/users" render={() => <UsersContainer />} />
 
         <Route path="/login" render={() => <Login />} />
